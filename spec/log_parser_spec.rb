@@ -11,4 +11,8 @@ RSpec.describe LogParser do
   it 'returns false when no log is passed' do
     expect(parser.parse).to eq false
   end
+
+  it 'returns false if anything else except a string is passed in' do
+    expect(parser.parse(log: nil)).to eq false
+  end
 end
