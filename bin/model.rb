@@ -14,6 +14,17 @@ class Model
     get_data
   end
 
+  def order_by_page_views
+    data.keys
+        .map { |webpage| {page: webpage, visits: data[webpage][:visits] } }
+        .sort_by { |a| a[:visits] }
+        .reverse
+        .map { |page_visits| "#{page_visits[:page]} #{page_visits[:visits]} visits"}
+        .join("\n")
+  end
+
+  private
+
   def get_data
     @data = {}
     return data unless file
