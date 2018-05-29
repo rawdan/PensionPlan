@@ -15,21 +15,13 @@ class Model
   end
 
   def order_by_page_views
-    data.keys
-        .map { |webpage| {page: webpage, visits: data[webpage][:visits] } }
-        .sort_by { |a| a[:visits] }
-        .reverse
-        .map { |page_visits| "#{page_visits[:page]} #{page_visits[:visits]} visits"}
-        .join("\n")
+    sort_page_view_data = data.keys.map { |webpage| {page: webpage, visits: data[webpage][:visits] } }.sort_by { |a| a[:visits] }.reverse
+    sort_page_view_data.map { |page_visits| "#{page_visits[:page]} #{page_visits[:visits]} visits"}.join("\n")
   end
 
   def order_by_unique_page_views
-    data.keys
-        .map { |webpage| {page: webpage, visits: data[webpage][:visitors].size } }
-        .sort_by { |a| a[:visits] }
-        .reverse
-        .map { |page_visits| "#{page_visits[:page]} #{page_visits[:visits]} visits"}
-        .join("\n")
+    sort_unique_page_view_data = data.keys.map { |webpage| {page: webpage, visits: data[webpage][:visitors].size } }.sort_by { |a| a[:visits] }.reverse
+    sort_unique_page_view_data.map { |page_visits| "#{page_visits[:page]} #{page_visits[:visits]} visits"}.join("\n")
   end
 
   private
