@@ -43,4 +43,16 @@ RSpec.describe Model do
       expect(results.order_by_page_views()).to eq "/about/2 2 visits\n/home 1 visits"
     end
   end
+
+  it 'returns list of webpages with most unique page views ordered from most pages views to less page views' do
+    Tempfile.create('log') do |f|
+      f.puts '/home 184.123.665.067'
+      f.puts '/home 184.123.665.067'
+      f.puts '/about/2 444.701.448.104'
+      f.puts '/about/2 444.701.448.103'
+      f.rewind
+      results = Model.new(file: f)
+      expect(results.order_by_unique_page_views).to eq "/about/2 2 visits\n/home 1 visits"
+    end
+  end
 end
